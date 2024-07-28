@@ -10,8 +10,6 @@ class PredictionFormPage extends StatefulWidget {
 class _PredictionFormPageState extends State<PredictionFormPage> {
   final _formKey = GlobalKey<FormState>();
   final Map<String, dynamic> _formData = {
-    "weight": null,
-    "resolution": null,
     "pixels_per_inch": null,
     "cpu_core": null,
     "cpu_freq": '',
@@ -40,8 +38,6 @@ class _PredictionFormPageState extends State<PredictionFormPage> {
         url,
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
-          "weight": double.parse(_formData["weight"].toString()),
-          "resoloution": double.parse(_formData["resolution"].toString()),
           "ppi": int.parse(_formData["pixels_per_inch"].toString()),
           "cpu_core": int.parse(_formData["cpu_core"].toString()),
           "cpu_freq": double.parse(_formData["cpu_freq"].toString()),
@@ -110,20 +106,18 @@ class _PredictionFormPageState extends State<PredictionFormPage> {
                       duration: Duration(milliseconds: 500),
                       child: Column(
                         children: [
-                          _buildDropdownField("Weight", "weight",
-                              [110.0, 125.0, 135.0, 150.0, 170.0, 202.0]),
-                          _buildDropdownField("Resolution", "resolution",
-                              [4.0, 4.7, 5.2, 5.5, 6.0]),
-                          _buildDropdownField("Pixels per inch",
-                              "pixels_per_inch", [233, 312, 401, 424, 534]),
                           _buildDropdownField(
-                              "CPU Core", "cpu_core", [2, 4, 8]),
+                              "Pixels per inch",
+                              "pixels_per_inch",
+                              [233, 294, 326, 401, 458, 480]),
+                          _buildDropdownField(
+                              "CPU Core", "cpu_core", [2, 4, 6, 8, 10, 12]),
                           _buildTextField("CPU Freq", "cpu_freq"),
                           _buildTextField("Internal Memory", "internal_mem"),
                           _buildDropdownField(
-                              "RAM", "ram", [0.512, 1.0, 1.5, 3.0, 4.0, 6.0]),
-                          _buildDropdownField("Rear Camera", "RearCam",
-                              [3.15, 12.0, 13.0, 20.0, 21.5]),
+                              "RAM", "ram", [4, 6, 8, 12, 16, 32]),
+                          _buildDropdownField(
+                              "Rear Camera", "RearCam", [2, 5, 8, 12, 16, 20]),
                           _buildDropdownField("Front Camera", "Front_Cam",
                               [0.0, 5.0, 8.0, 16.0, 20.0]),
                           _buildTextField("Battery", "battery"),
@@ -196,7 +190,7 @@ class _PredictionFormPageState extends State<PredictionFormPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Weight: ${prediction["weight"]}, Resolution: ${prediction["resolution"]}, PPI: ${prediction["pixels_per_inch"]}, CPU Core: ${prediction["cpu_core"]}, CPU Freq: ${prediction["cpu_freq"]}, Internal Mem: ${prediction["internal_mem"]}, RAM: ${prediction["ram"]}, RearCam: ${prediction["RearCam"]}, FrontCam: ${prediction["Front_Cam"]}, Battery: ${prediction["battery"]}, Thickness: ${prediction["thickness"]} => Predicted Price: \$${prediction["predicted_price"]}',
+                            'PPI: ${prediction["pixels_per_inch"]}, CPU Core: ${prediction["cpu_core"]}, CPU Freq: ${prediction["cpu_freq"]}, Internal Mem: ${prediction["internal_mem"]}, RAM: ${prediction["ram"]}, RearCam: ${prediction["RearCam"]}, FrontCam: ${prediction["Front_Cam"]}, Battery: ${prediction["battery"]}, Thickness: ${prediction["thickness"]} => Predicted Price: \$${prediction["predicted_price"]}',
                             style: TextStyle(fontSize: 14),
                           ),
                         ),
@@ -277,5 +271,6 @@ void main() {
       primarySwatch: Colors.blue,
       visualDensity: VisualDensity.adaptivePlatformDensity,
     ),
+    debugShowCheckedModeBanner: false,
   ));
 }
