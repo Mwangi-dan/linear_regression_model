@@ -5,11 +5,12 @@ import joblib
 import numpy as np
 
 # Load the trained model
-model = joblib.load('trained_model.pkl')
+model = joblib.load('new_trained_model.pkl')
 
 # Define the FastAPI app
 app = FastAPI()
 
+# Resolving Cross Origin Resource Sharing error
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,17 +21,13 @@ app.add_middleware(
 
 # Define the input data model
 class InputData(BaseModel):
-    weight: float
-    resoloution: float
     ppi: float
-    cpu_core: int
     cpu_freq: float
     internal_mem: float
     ram: float
     RearCam: float
     Front_Cam: float
     battery: int
-    thickness: float
 
 # Define the predict endpoint
 @app.post("/predict/")
