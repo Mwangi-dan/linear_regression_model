@@ -33,9 +33,7 @@ class InputData(BaseModel):
 @app.post("/predict/")
 def predict(data: InputData):
     # Convert input data to numpy array
-    input_data = np.array([[data.weight, data.resoloution, data.ppi, data.cpu_core, data.cpu_freq,
-                            data.internal_mem, data.ram, data.RearCam, data.Front_Cam, data.battery,
-                            data.thickness]])
+    input_data = np.array([[data.ppi, data.cpu_freq, data.internal_mem, data.ram, data.RearCam, data.Front_Cam, data.battery,]])
     
     # Make prediction
     prediction = model.predict(input_data)
